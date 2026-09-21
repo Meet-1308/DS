@@ -1,0 +1,84 @@
+// WAP to reverse a linked list.
+#include<stdio.h>
+#include<stdlib.h>
+# define n 5
+struct link_list {
+	int info;
+	struct link_list *link;
+};
+struct link_list *first=NULL;
+void insert_node(int x){
+	struct link_list *node;
+    if(first==NULL){
+        node=(struct link_list*)malloc(sizeof(struct link_list));
+        node->info=x;
+        node->link=NULL;
+        first=node;
+    }
+    else{
+        struct link_list *temp=first;
+        while(temp->link!=NULL){
+            temp=temp->link;
+        }
+        node=(struct link_list*)malloc(sizeof(struct link_list));
+        node->info=x;
+        first->link=node;
+        node->link=NULL;
+
+    }
+}
+void reverse_list(){
+    struct link_list *prev=NULL,*current=first,*next=NULL;
+    while(current!=NULL){
+        next=current->link;
+        current->link=prev;
+        prev=current;
+        current=next;
+    }
+    first=prev;
+    printf("Reversed list: ");
+    struct link_list *temp=first;
+    while(temp!=NULL){
+        printf("%d \t",temp->info);
+        temp=temp->link;
+    }
+    printf("\n");
+}
+void display(){
+	struct link_list *temp;
+	temp=first;
+	while(temp!=NULL){
+		printf("%d \t",temp->info);
+		temp=temp->link;
+	}
+	printf("\n");
+}
+void main(){
+	int choice,x,pos;
+	while(1){
+		printf("1. Insert at front\n");
+		printf("2. reverce link list\n");
+        printf("3. Display\n");
+		printf("4. Exit\n");
+		printf("Enter your choice: ");
+		scanf("%d",&choice);
+		switch(choice){
+			case 1:
+				printf("Enter value to insert: ");
+				scanf("%d",&x);
+				insert_node(x);
+				break;
+			case 2:
+				reverse_list();
+				break;
+			case 3:
+				display();
+				break;
+			case 4:
+				exit(0);
+			default:
+				printf("Invalid choice\n");
+		}
+	}
+}
+				
